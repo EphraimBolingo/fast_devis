@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="fr" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAST DEVIS</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" type="image/webp" href="/assets/logo.webp" />
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+    <!-- ============ BARRE SUPÉRIEURE ============ -->
+    <header class="barre-superieure">
+      <div class="barre-gauche">
+        <div class="conteneur-logo-app">
+          <img src="/assets/logo.webp" alt="FAST DEVIS" class="logo-app" />
+        </div>
+      </div>
+      <nav class="barre-actions" aria-label="Actions principales">
+        <button type="button" class="bouton-action" id="action-nouveau" aria-label="Nouveau devis" title="Nouveau devis">
+          <img src="/assets/nouveau.svg" alt="" class="icone" />
+        </button>
+        <button type="button" class="bouton-action" id="action-enregistrer" aria-label="Enregistrer" title="Enregistrer">
+          <img src="/assets/enregistrer.svg" alt="" class="icone" />
+        </button>
+        <button type="button" class="bouton-action" id="action-imprimer" aria-label="Imprimer" title="Imprimer">
+          <img src="/assets/imprimer.svg" alt="" class="icone" />
+        </button>
+        <button type="button" class="bouton-action" id="action-telecharger" aria-label="Exporter en PDF" title="Exporter en PDF">
+          <img src="/assets/telecharger.svg" alt="" class="icone" />
+        </button>
+        <details class="aide-pdf">
+          <summary class="bouton-action" aria-label="Aide pour exporter le devis en PDF" title="Comment enregistrer le devis en PDF">
+            <img src="/assets/information.svg" alt="" class="icone" />
+          </summary>
+          <div class="contenu-aide-pdf" role="note">
+            <strong>Enregistrer sans imprimer</strong>
+            <p>Cliquez sur « Exporter en PDF », puis choisissez « Enregistrer au format PDF » dans la fenêtre d’impression. Cliquez sur « Enregistrer » et choisissez où placer le fichier. Aucun document papier ne sera imprimé.</p>
+          </div>
+        </details>
+        <button type="button" class="bouton-action" id="action-parametres" aria-label="Paramètres" title="Paramètres">
+          <img src="/assets/parametres.svg" alt="" class="icone" />
+        </button>
+      </nav>
+    </header>
+
+    <nav class="bascule-mobile" role="tablist" aria-label="Choisir l’espace de travail">
+      <button type="button" class="bouton-bascule actif" id="onglet-edition" data-vue="edition" role="tab" aria-selected="true" aria-controls="espace-edition" tabindex="0">
+        <img src="/assets/modifier.svg" alt="" class="icone" />
+        <span>Modifier</span>
+      </button>
+      <button type="button" class="bouton-bascule" id="onglet-apercu" data-vue="apercu" role="tab" aria-selected="false" aria-controls="espace-apercu" tabindex="-1">
+        <img src="/assets/apercu.svg" alt="" class="icone" />
+        <span>Aperçu</span>
+      </button>
+    </nav>
+
+    <!-- ============ CORPS PRINCIPAL ============ -->
+    <main class="corps-principal">
+      <!-- ============ ESPACE ÉDITION ============ -->
+      <section class="espace-edition" id="espace-edition" role="tabpanel" aria-labelledby="onglet-edition" tabindex="0">
+        <!-- Entreprise -->
+        <fieldset class="bloc-edition" id="bloc-entreprise">
+          <legend>
+            <img src="/assets/entreprise.svg" alt="" class="icone-legend" />
+            Entreprise
+          </legend>
+          <div class="grille-champs">
+            <div class="champ-col-2">
+              <label for="entreprise-nom">Nom de l'entreprise</label>
+              <input type="text" id="entreprise-nom" placeholder="Nom commercial" autocomplete="organization" />
+            </div>
+            <div class="champ-col-2">
+              <label for="entreprise-adresse">Adresse</label>
+              <input type="text" id="entreprise-adresse" placeholder="Rue, code postal, ville" autocomplete="street-address" />
+            </div>
+            <div>
+              <label for="entreprise-telephone">Téléphone</label>
+              <input type="tel" id="entreprise-telephone" placeholder="01 23 45 67 89" autocomplete="tel" />
+            </div>
+            <div>
+              <label for="entreprise-email">Email</label>
+              <input type="email" id="entreprise-email" placeholder="contact@entreprise.fr" autocomplete="email" />
+            </div>
+            <div>
+              <label for="entreprise-site">Site web (facultatif)</label>
+              <input type="url" id="entreprise-site" placeholder="www.entreprise.fr" autocomplete="url" />
+            </div>
+            <div>
+              <label for="entreprise-legal">Informations légales (facultatif)</label>
+              <input type="text" id="entreprise-legal" placeholder="SIRET, RCS, TVA..." />
+            </div>
+          </div>
+          <!-- Logo -->
+          <div class="zone-logo">
+            <label class="champ-label-logo" for="input-televerser-logo">
+              <img src="/assets/televerser.svg" alt="" class="icone" />
+              <span>Importer un logo</span>
+            </label>
+            <input type="file" id="input-televerser-logo" accept="image/png, image/jpeg, image/svg+xml, image/webp" hidden />
+            <div class="apercu-logo" id="apercu-logo-entreprise" hidden>
+              <img src="" alt="Logo de l'entreprise" id="img-logo-entreprise" />
+              <div class="controles-logo">
+                <button type="button" class="bouton-petit" id="bouton-supprimer-logo" aria-label="Supprimer le logo" title="Supprimer le logo">
+                  <img src="/assets/supprimer.svg" alt="" class="icone" />
+                </button>
+              </div>
+            </div>
+            <div class="position-logo" id="controle-position-logo" hidden>
+              <span class="label-position">Position du logo</span>
+              <div class="boutons-position">
+                <button type="button" class="bouton-position actif" data-position="gauche" aria-label="Logo à gauche">Gauche</button>
+                <button type="button" class="bouton-position" data-position="droite" aria-label="Logo à droite">Droite</button>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Document -->
+        <fieldset class="bloc-edition" id="bloc-document">
+          <legend>
+            <img src="/assets/devis.svg" alt="" class="icone-legend" />
+            Document
+          </legend>
+          <div class="grille-champs">
+            <div>
+              <label for="document-numero">Numéro du devis</label>
+              <input type="text" id="document-numero" placeholder="DEV-2026-001" />
+            </div>
+            <div>
+              <label for="document-date">Date</label>
+              <input type="date" id="document-date" />
+            </div>
+            <div class="champ-col-2">
+              <label for="document-objet">Objet du devis</label>
+              <input type="text" id="document-objet" placeholder="Description courte de la prestation" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Client -->
+        <fieldset class="bloc-edition" id="bloc-client">
+          <legend>
+            <img src="/assets/client.svg" alt="" class="icone-legend" />
+            Client
+          </legend>
+          <div class="grille-champs">
+            <div class="champ-col-2">
+              <label for="client-nom">Nom ou raison sociale</label>
+              <input type="text" id="client-nom" placeholder="Nom du client" autocomplete="name" />
+            </div>
+            <div class="champ-col-2">
+              <label for="client-adresse">Adresse</label>
+              <input type="text" id="client-adresse" placeholder="Rue, code postal, ville" autocomplete="street-address" />
+            </div>
+            <div>
+              <label for="client-telephone">Téléphone</label>
+              <input type="tel" id="client-telephone" placeholder="01 23 45 67 89" autocomplete="tel" />
+            </div>
+            <div>
+              <label for="client-email">Email</label>
+              <input type="email" id="client-email" placeholder="client@email.fr" autocomplete="email" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Prestations -->
+        <fieldset class="bloc-edition" id="bloc-prestations">
+          <legend>
+            <img src="/assets/devis.svg" alt="" class="icone-legend" />
+            Prestations
+          </legend>
+          <!-- Tableau éditable (desktop) -->
+          <div class="tableau-edition-wrapper">
+            <table class="tableau-edition" id="tableau-prestations">
+              <thead>
+                <tr>
+                  <th class="col-designation">Désignation</th>
+                  <th class="col-quantite">Quantité</th>
+                  <th class="col-prix">Prix unitaire</th>
+                  <th class="col-montant">Montant</th>
+                  <th class="col-actions" aria-label="Actions"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="corps-tableau-prestations">
+              </tbody>
+            </table>
+          </div>
+          <!-- Vue mobile -->
+          <div class="cartes-prestations" id="cartes-prestations"></div>
+          <button type="button" class="bouton-ajouter-prestation" id="bouton-ajouter-prestation">
+            <img src="/assets/ajouter.svg" alt="" class="icone" />
+            <span>Ajouter une prestation</span>
+          </button>
+          <div class="champ-main-oeuvre">
+            <div class="entete-main-oeuvre">
+              <label for="document-main-oeuvre">Main-d’œuvre</label>
+              <span class="mention-optionnelle">Facultatif</span>
+            </div>
+            <p class="description-main-oeuvre">Ce montant sera ajouté au total du devis.</p>
+            <input type="number" id="document-main-oeuvre" min="0" step="0.01" placeholder="0,00" inputmode="decimal" />
+          </div>
+        </fieldset>
+
+        <!-- Options d'apparence -->
+        <fieldset class="bloc-edition" id="bloc-apparence">
+          <legend>
+            <img src="/assets/parametres.svg" alt="" class="icone-legend" />
+            Options d'apparence
+          </legend>
+          <div class="grille-champs">
+            <div>
+              <label for="apparence-devise">Devise</label>
+              <select id="apparence-devise">
+                <option value="EUR">Euro (€)</option>
+                <option value="USD">Dollar US ($)</option>
+                <option value="GBP">Livre Sterling (£)</option>
+                <option value="CHF">Franc Suisse (CHF)</option>
+                <option value="CAD">Dollar Canadien (C$)</option>
+              </select>
+            </div>
+            <div>
+              <span class="label-static">Position du logo</span>
+              <div class="boutons-position">
+                <button type="button" class="bouton-position-app actif" data-position="gauche" aria-label="Logo à gauche">Gauche</button>
+                <button type="button" class="bouton-position-app" data-position="droite" aria-label="Logo à droite">Droite</button>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </section>
+
+      <!-- ============ ESPACE APERÇU ============ -->
+      <section class="espace-apercu" id="espace-apercu" role="tabpanel" aria-labelledby="onglet-apercu" tabindex="0">
+        <div class="entete-apercu">
+          <img src="/assets/apercu.svg" alt="" class="icone" />
+          <span>Aperçu du devis</span>
+        </div>
+        <div class="conteneur-apercu">
+          <div class="feuille-devis" id="feuille-devis">
+            <!-- Rendu généré dynamiquement par script.js -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ PANNEAU PARAMÈTRES ============ -->
+    <aside class="panneau-parametres" id="panneau-parametres" hidden aria-label="Paramètres">
+      <div class="entete-panneau">
+        <h2>Paramètres</h2>
+        <button type="button" class="bouton-fermer-panneau" id="bouton-fermer-parametres" aria-label="Fermer les paramètres">
+          <img src="/assets/fermer.svg" alt="" class="icone" />
+        </button>
+      </div>
+      <div class="contenu-panneau">
+        <div class="champ-panneau">
+          <span class="label-static" id="libelle-theme">Thème de l’application</span>
+          <div class="boutons-theme" role="group" aria-labelledby="libelle-theme">
+            <button type="button" class="bouton-theme actif" data-theme="light" aria-pressed="true">Clair</button>
+            <button type="button" class="bouton-theme" data-theme="dark" aria-pressed="false">Sombre</button>
+          </div>
+        </div>
+        <div class="champ-panneau">
+          <label for="parametre-devise">Devise par défaut</label>
+          <select id="parametre-devise">
+            <option value="EUR">Euro (€)</option>
+            <option value="USD">Dollar US ($)</option>
+            <option value="GBP">Livre Sterling (£)</option>
+            <option value="CHF">Franc Suisse (CHF)</option>
+            <option value="CAD">Dollar Canadien (C$)</option>
+          </select>
+        </div>
+        <div class="champ-panneau">
+          <label for="parametre-prefixe-numero">Préfixe numéro de devis</label>
+          <input type="text" id="parametre-prefixe-numero" placeholder="DEV" />
+        </div>
+        <details class="mentions-application">
+          <summary>À propos et conditions d’utilisation</summary>
+          <div class="texte-mentions">
+            <h3>FAST DEVIS</h3>
+            <p class="signature-createur">Conception : <strong>Wayanga Bolingo Ephraim</strong></p>
+            <h4>Cadre d’utilisation</h4>
+            <p>FAST DEVIS permet de créer, modifier et exporter des devis. Avant toute transmission, vérifiez l’exactitude des coordonnées, des prestations et des montants indiqués.</p>
+            <h4>Confidentialité</h4>
+            <p>Les informations saisies restent sous votre contrôle et sont conservées sur l’appareil utilisé. FAST DEVIS ne les transmet pas à un compte en ligne. Sur un appareil partagé, veillez à en protéger l’accès. Vous pouvez supprimer les données enregistrées depuis les paramètres.</p>
+            <h4>Conformité du devis</h4>
+            <p>Les taxes, la durée de validité, les délais et les modalités de paiement dépendent de votre activité et de la réglementation applicable. Renseignez et vérifiez ces éléments avant d’émettre votre devis.</p>
+          </div>
+        </details>
+        <hr class="separateur-panneau" />
+        <button type="button" class="bouton-panneau" id="bouton-effacer-donnees">
+          Effacer toutes les données enregistrées
+        </button>
+      </div>
+    </aside>
+
+    <!-- Overlay panneau -->
+    <div class="overlay-panneau" id="overlay-panneau" hidden></div>
+
+    <!-- ============ MESSAGE STATUT ============ -->
+    <div class="message-statut" id="message-statut" role="status" aria-live="polite" hidden></div>
+
+    <script type="module" src="/script.js"></script>
+  </body>
+</html>
